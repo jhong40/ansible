@@ -9,4 +9,22 @@ ansible-playbook my.yml --limit webservers  # specific group
 ansible-playbook my.yml --tag=database      
 ansible-playbook my.yml --tag=start,stop    # will stop the svc, and start according to the order in the playbook
 
+ansible-playbook my.yml -v                  # verbose mode -vv: tell task filename,line number, -vvv
+
+ANSIBLE_LOG_PATH=/myfolder/myansible.log    # capture ansilbe output to a file
+ANSIBLE_DEBUGT=1                            # generates lot of output.. better > a file to look
+
+```
+
+```
+- ansible.builtin.foo:
+    bar: baz
+  check_mode: true                         # true: run in checkmode even if --check is not used, false: run normal even if commandline with --check
+
+- ansible.builtin.debug:
+    msg: "Hello World"                     # msg or var (not both)
+    var: foobar
+    verbose: 3
+    var: ansible_facts.mounts | selectattr('mount', 'equalto', '/') | map(attribute='size_availabe')  # select the root mounts section
+
 ```

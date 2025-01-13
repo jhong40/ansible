@@ -39,4 +39,15 @@ ANSIBLE_DEBUGT=1                            # generates lot of output.. better >
   ansible.builtin.fail:
     msg: The system may not be provisioned according to the CMDB status.
   when: cmdb_status != "to-be-staged"
+
+- name: restart DB
+  meta: flush_handlers    # clear_facts, clear_host_errors, end_host, end_play, flush_handlers, noop, refresh_inventory, reset_connection
+
+- name: wait for port 80 to be open
+  wait_for:
+    timeout: 10
+    port: 80
+    state: started        # after the port 80 is open, then check 80 accessibiliity
+
+
 ```

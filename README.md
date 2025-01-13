@@ -51,3 +51,5 @@ ANSIBLE_DEBUGT=1                            # generates lot of output.. better >
 
 
 ```
+## Ansible debugger 
+https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_debugger.html

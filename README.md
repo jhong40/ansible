@@ -27,4 +27,11 @@ ANSIBLE_DEBUGT=1                            # generates lot of output.. better >
     verbose: 3
     var: ansible_facts.mounts | selectattr('mount', 'equalto', '/') | map(attribute='size_availabe')  # select the root mounts section
 
+- name: After version 2.7 both O(msg) and O(fail_msg) can customize failing assertion message
+  ansible.builtin.assert:
+    that:
+      - my_param <= 100
+      - my_param >= 0
+    fail_msg: "'my_param' must be between 0 and 100"
+    success_msg: "'my_param' is between 0 and 100"
 ```

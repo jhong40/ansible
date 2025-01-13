@@ -34,4 +34,9 @@ ANSIBLE_DEBUGT=1                            # generates lot of output.. better >
       - my_param >= 0
     fail_msg: "'my_param' must be between 0 and 100"
     success_msg: "'my_param' is between 0 and 100"
+
+- name: Example using fail and when together
+  ansible.builtin.fail:
+    msg: The system may not be provisioned according to the CMDB status.
+  when: cmdb_status != "to-be-staged"
 ```

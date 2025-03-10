@@ -1,5 +1,45 @@
 # ansible
 ```
+ansible all -m shell -a 'df -h'        # all - all host, -m module shell, -a argument 'df -h'
+ansible node-1 -m shell -a 'df -h'     # node-1
+ansible all -m ping                   # module ping
+ansible node-1 -m ping -o             #-o : Summarize the output into one line per node.
+ansible --version
+
+ansible [core 2.11.5] 
+  config file = /root/.ansible.cfg
+  configured module search path = ['/root/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /opt/kata-materials/ansible/lib/python3.8/site-packages/ansible
+  ansible collection location = /root/.ansible/collections:/usr/share/ansible/collections
+  executable location = /opt/kata-materials/ansible/bin/ansible
+  python version = 3.8.10 (default, Sep 28 2021, 16:10:42) [GCC 9.3.0]
+  jinja version = 3.0.2
+  libyaml = True
+
+cat ~/.ansible.cfg
+[defaults]
+inventory          = /root/inventory_file
+host_key_checking  = False
+force_color        = True
+forks              = 1
+
+[ssh_connection]
+ssh_args = -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null
+
+(ansible) ubuntu $ cat ~/inventory_file
+[web]
+node-1 ansible_host=172.17.0.2
+node-2 ansible_host=172.17.0.3
+node-3 ansible_host=172.17.0.4
+[all:vars]
+ansible_user=centos
+ansible_ssh_private_key_file=/root/automation-keypair.pem
+(ansible) ubuntu $
+
+ansible web --list-hosts  # list node-1,2,3
+
+```
+```
 ansible-playbook my.yml --syntax-check      # only validate syntax, not exe
 ansible-playbook mydir/**/* --syntax-check  # check all the files under mydir
 ansible-playbook my.yml --check             # look for "changed:", dry-run, if wrong package like ngingx (nginx), it will detect

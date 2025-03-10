@@ -37,6 +37,7 @@ ansible_ssh_private_key_file=/root/automation-keypair.pem
 (ansible) ubuntu $
 
 ansible web --list-hosts  # list node-1,2,3
+ansible-doc -l       # list installed ansible modules
 
 ```
 ```

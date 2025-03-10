@@ -2,8 +2,13 @@
 ```
 ansible all -m shell -a 'df -h'        # all - all host, -m module shell, -a argument 'df -h'
 ansible node-1 -m shell -a 'df -h'     # node-1
+ansible all -m shell -a 'hostname'     # list hostname
 ansible all -m ping                   # module ping
 ansible node-1 -m ping -o             #-o : Summarize the output into one line per node.
+ansible node-1 -m shell -a 'which screen'   # check screen pkg installed or not
+ansible node-1 -b -m dnf -a 'name=screen state=latest'   # dnf like yum, apt, install screen pkg, -b: become
+ansible node-1 -m setup                # retrieve info from node -> ansible_{variable}
+
 ansible --version
 
 ansible [core 2.11.5] 

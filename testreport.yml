@@ -1,0 +1,77 @@
+---
+- name: Report with Ansible
+  hosts: web
+  gather_facts: true
+  tasks:
+  - name: build report
+    copy:
+      content: |
+        # Server Configuration Reports: {{ inventory_hostname }}
+        ---
+        | name | value  |
+        | ---- | ------ |
+        {% for key, value in ansible_default_ipv4.items() %}
+        | {{ key }} | {{ value }} |
+        {% endfor %}
+      dest: /tmp/setting_report_{{ inventory_hostname }}.md
+    delegate_to: localhost
+  
+  - name: concatenate reports
+    assemble:
+      src: /tmp
+      regexp: 'setting\_report\_*'
+      dest: setting_report.md
+      delimiter: "\n"
+    run_once: true
+    delegate_to: localhost
+```
+(ansible) ubuntu $ cat setting_report.md 
+# Server Configuration Reports: node-1
+---
+| name | value  |
+| ---- | ------ |
+| gateway | 172.17.0.1 |
+| interface | eth0 |
+| address | 172.17.0.2 |
+| broadcast | 172.17.255.255 |
+| netmask | 255.255.0.0 |
+| network | 172.17.0.0 |
+| prefix | 16 |
+| macaddress | 02:42:ac:11:00:02 |
+| mtu | 1454 |
+| type | ether |
+| alias | eth0 |
+
+# Server Configuration Reports: node-2
+---
+| name | value  |
+| ---- | ------ |
+| gateway | 172.17.0.1 |
+| interface | eth0 |
+| address | 172.17.0.3 |
+| broadcast | 172.17.255.255 |
+| netmask | 255.255.0.0 |
+| network | 172.17.0.0 |
+| prefix | 16 |
+| macaddress | 02:42:ac:11:00:03 |
+| mtu | 1454 |
+| type | ether |
+| alias | eth0 |
+
+# Server Configuration Reports: node-3
+---
+| name | value  |
+| ---- | ------ |
+| gateway | 172.17.0.1 |
+| interface | eth0 |
+| address | 172.17.0.4 |
+| broadcast | 172.17.255.255 |
+| netmask | 255.255.0.0 |
+| network | 172.17.0.0 |
+| prefix | 16 |
+| macaddress | 02:42:ac:11:00:04 |
+| mtu | 1454 |
+| type | ether |
+| alias | eth0 |
+(ansible) ubuntu $ 
+```

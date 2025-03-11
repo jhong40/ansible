@@ -44,3 +44,12 @@
               - "{{ ret_httpd_enabled }}"
             query: "\\|"
           delegate_to: localhost
+```
+# Test Reports
+---
+| test | result |
+| ---- | ------ |
+| yum list installed &#124; grep -e '^httpd\.' | 0 |
+| ps -ef &#124;grep http[d] | 1 |
+| systemctl is-enabled httpd | 0 |
+```

@@ -14,6 +14,16 @@ ansible node-1 -m debug -a 'msg={{ hoge | default("abc") }}'       # debug mode 
 ansible node-1 -e 'str=abc' -m debug -a 'msg="{{ str | upper }}"'  # -> ABC
 ansible node-1 -m debug -a 'msg="{{ [5, 1, 10] | min }}"'          # -> 1
 
+ansible node-1 -b -m yum -a 'name=httpd state=present'
+ansible node-1 -b -m systemd -a 'name=httpd state=started enabled=yes'
+
+
+ansible-lint lint_ng_playbook.yml                                 # lint .yml
+ansible-lint -L                                                   # checking rule
+ansible-lint -T                                                   # checking tag
+ansible-lint -x unnamed-task -x yaml lint_ng_playbook.yml         # excloude unnamed task to make it ok
+
+
 ansible --version
 
 ansible [core 2.11.5] 

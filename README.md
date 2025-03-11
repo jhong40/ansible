@@ -16,6 +16,7 @@ ansible node-1 -m debug -a 'msg="{{ [5, 1, 10] | min }}"'          # -> 1
 
 ansible node-1 -b -m yum -a 'name=httpd state=present'
 ansible node-1 -b -m systemd -a 'name=httpd state=started enabled=yes'
+ansible node-1 -b -m systemd -a 'name=httpd state=stopped enabled=yes'    
 
 
 ansible-lint lint_ng_playbook.yml                                 # lint .yml

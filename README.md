@@ -12,6 +12,7 @@ ansible node-1 -m setup                # retrieve info from node -> ansible_{var
 ansible web -m uri -a 'url=http://localhost/ return_content=yes'   # check url
 ansible node-1 -m debug -a 'msg={{ hoge | default("abc") }}'       # debug mode -> abc
 ansible node-1 -e 'str=abc' -m debug -a 'msg="{{ str | upper }}"'  # -> ABC
+ansible node-1 -m debug -a 'msg="{{ [5, 1, 10] | min }}"'          # -> 1
 
 ansible --version
 

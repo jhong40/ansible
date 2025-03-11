@@ -10,7 +10,8 @@ ansible node-1 -b -m dnf -a 'name=screen state=latest'   # dnf like yum, apt, in
 ansible node-1 -m setup                # retrieve info from node -> ansible_{variable}
 
 ansible web -m uri -a 'url=http://localhost/ return_content=yes'   # check url
-ansible node-1 -m debug -a 'msg={{ hoge | default("abc") }}'       # debug mode
+ansible node-1 -m debug -a 'msg={{ hoge | default("abc") }}'       # debug mode -> abc
+ansible node-1 -e 'str=abc' -m debug -a 'msg="{{ str | upper }}"'  # -> ABC
 
 ansible --version
 

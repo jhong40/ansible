@@ -25,3 +25,22 @@
               - ret_httpd_pkg.rc == 0
               - ret_httpd_proc.rc == 0
               - ret_httpd_enabled.rc == 0
+      always:
+        - name: build report
+          copy:
+            content: |
+              # Test Reports
+              ---
+              | test | result |
+              | ---- | ------ |
+              {% for i in results %}
+              | {{ i.cmd | regex_replace(query, '&#124;') }} | {{ i.rc }} |
+              {% endfor %}
+            dest: result_report_{{ inventory_hostname }}.md
+          vars:
+            results:
+              - "{{ ret_httpd_pkg }}"
+              - "{{ ret_httpd_proc }}"
+              - "{{ ret_httpd_enabled }}"
+            query: "\\|"
+          delegate_to: localhost

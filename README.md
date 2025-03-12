@@ -115,3 +115,44 @@ ANSIBLE_DEBUGT=1                            # generates lot of output.. better >
 ```
 ## Ansible debugger 
 [https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_debugger.html](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_debugger.html#available-debug-commands)
+
+```
+(ansible) ubuntu $ cat z.yml 
+---
+- name: Install packages on managed hosts
+  hosts: node-1
+  tasks:
+    - name: Install packages
+      package:
+        name: 
+          - nginx
+          - wget
+          - zenmap
+        state: present
+      debugger: always
+      become: yes
+
+(ansible) ubuntu $ ansible-playbook z.yml 
+/opt/kata-materials/ansible/lib/python3.8/site-packages/paramiko/pkey.py:82: CryptographyDeprecationWarning: TripleDES has been moved to cryptography.hazmat.decrepit.ciphers.algorithms.TripleDES and will be removed from cryptography.hazmat.primitives.ciphers.algorithms in 48.0.0.
+  "cipher": algorithms.TripleDES,
+/opt/kata-materials/ansible/lib/python3.8/site-packages/paramiko/transport.py:253: CryptographyDeprecationWarning: TripleDES has been moved to cryptography.hazmat.decrepit.ciphers.algorithms.TripleDES and will be removed from cryptography.hazmat.primitives.ciphers.algorithms in 48.0.0.
+  "class": algorithms.TripleDES,
+
+PLAY [Install packages on managed hosts] ******************************************************************************************************
+
+TASK [Gathering Facts] ************************************************************************************************************************
+ok: [node-1]
+
+TASK [Install packages] ***********************************************************************************************************************
+fatal: [node-1]: FAILED! => {"changed": false, "failures": ["No package zenmap available."], "msg": "Failed to install some of the specified packages", "rc": 1, "results": []}
+[node-1] TASK: Install packages (debug)> p task.args
+{'name': ['nginx', 'wget', 'zenmap'], 'state': 'present'}
+[node-1] TASK: Install packages (debug)> p task.args['name']
+['nginx', 'wget', 'zenmap']
+[node-1] TASK: Install packages (debug)> task.args['name'][-1]='nmap'
+[node-1] TASK: Install packages (debug)> p task.args['name']
+['nginx', 'wget', 'nmap']
+[node-1] TASK: Install packages (debug)> r
+changed: [node-1]
+[node-1] TASK: Install packages (debug)>
+```

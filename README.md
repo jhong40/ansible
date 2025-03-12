@@ -154,5 +154,32 @@ fatal: [node-1]: FAILED! => {"changed": false, "failures": ["No package zenmap a
 ['nginx', 'wget', 'nmap']
 [node-1] TASK: Install packages (debug)> r
 changed: [node-1]
-[node-1] TASK: Install packages (debug)>
+[node-1] TASK: Install packages (debug)> p task_vars  # print bunch k=v pairs
+[node-1] TASK: Install packages (debug)> p list(task_vars.keys())   # print only the keys
+[node-1] TASK: Install packages (debug)> p task_vars['ansible_mounts']  # print mounts
+[node-1] TASK: Install packages (debug)> p len(task_vars['ansible_mounts'])
+3
+[node-1] TASK: Install packages (debug)> p task_vars['ansible_mounts'][0]   # print the 1st mount
+{'block_available': 3615636,
+ 'block_size': 4096,
+ 'block_total': 5033648,
+ 'block_used': 1418012,
+ 'device': '/dev/vda1',
+ 'fstype': 'ext4',
+ 'inode_available': 2424616,
+ 'inode_total': 2580480,
+ 'inode_used': 155864,
+ 'mount': '/etc/resolv.conf',
+ 'options': 'rw,relatime,bind',
+ 'size_available': 14809645056,
+ 'size_total': 20617822208,
+ 'uuid': '666195bb-9c58-470d-9495-743ff99e48c8'}
+[node-1] TASK: Install packages (debug)> u
+[node-1] TASK: Install packages (debug)> r
+[node-1] TASK: Install packages (debug)> p dir()
+['host', 'play_context', 'result', 'task', 'task_vars']
+[node-1] TASK: Install packages (debug)> p dir(host)   # -> group
+[node-1] TASK: Install packages (debug)> p host.group  # -> [web,all]
+
+
 ```

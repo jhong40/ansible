@@ -133,11 +133,6 @@ ANSIBLE_DEBUGT=1                            # generates lot of output.. better >
       become: yes
 
 (ansible) ubuntu $ ansible-playbook z.yml 
-/opt/kata-materials/ansible/lib/python3.8/site-packages/paramiko/pkey.py:82: CryptographyDeprecationWarning: TripleDES has been moved to cryptography.hazmat.decrepit.ciphers.algorithms.TripleDES and will be removed from cryptography.hazmat.primitives.ciphers.algorithms in 48.0.0.
-  "cipher": algorithms.TripleDES,
-/opt/kata-materials/ansible/lib/python3.8/site-packages/paramiko/transport.py:253: CryptographyDeprecationWarning: TripleDES has been moved to cryptography.hazmat.decrepit.ciphers.algorithms.TripleDES and will be removed from cryptography.hazmat.primitives.ciphers.algorithms in 48.0.0.
-  "class": algorithms.TripleDES,
-
 PLAY [Install packages on managed hosts] ******************************************************************************************************
 
 TASK [Gathering Facts] ************************************************************************************************************************

@@ -1,4 +1,5 @@
 # ansible
+https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_variables.html#ansible-variable-precedence
 ```
 ansible all -m shell -a 'df -h'        # all - all host, -m module shell, -a argument 'df -h'
 ansible node-1 -m shell -a 'df -h'     # node-1

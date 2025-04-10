@@ -1,6 +1,12 @@
 # ansible
 https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_variables.html#ansible-variable-precedence
 ```
+ansible-config list                    # Lists all config
+ansible-config view                    # show current config file
+ansible-config dump                    # show current setting
+ansible-config dump | grep GATHERING   
+ansible-config dump | grep role        # show role search path
+
 ansible all -m shell -a 'df -h'        # all - all host, -m module shell, -a argument 'df -h'
 ansible node-1 -m shell -a 'df -h'     # node-1
 ansible all -m shell -a 'hostname'     # list hostname

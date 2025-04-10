@@ -75,7 +75,7 @@ ansible-playbook my.yml --tag=start,stop    # will stop the svc, and start accor
 ansible-playbook my.yml -v                  # verbose mode -vv: tell task filename,line number, -vvv
 
 ANSIBLE_LOG_PATH=/myfolder/myansible.log    # capture ansilbe output to a file
-ANSIBLE_DEBUGT=1                            # generates lot of output.. better > a file to look
+ANSIBLE_DEBUG=1                            # generates lot of output.. better > a file to look
 
 ```
 ### Magic Variable

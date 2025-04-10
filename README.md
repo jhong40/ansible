@@ -78,6 +78,18 @@ ANSIBLE_LOG_PATH=/myfolder/myansible.log    # capture ansilbe output to a file
 ANSIBLE_DEBUGT=1                            # generates lot of output.. better > a file to look
 
 ```
+### Magic Variable
+```
+- debug     # from one host to get another host's info
+  msg: "{{inventory_hostname}}"    # => web1  if configured in inventory: web1 ansible_host=1.1.1.1
+
+  msg: "{{hostvars['web1'].ansible_host}}"
+  msg: "{{hostvars['web2'].ansible_facts.architecture}}"
+  msg: "{{hostvars['web2']['ansible_facts']['architecture'}}"  # in diff format
+
+  msg: "{{groups[web_servers]}}"  # =>web1,web2   if [web_servers] =>web1,web2
+  msg: "{{group_names}}"          # web_servers, accounting servers if web1 defined in both group
+```
 
 ```
 - ansible.builtin.foo:
